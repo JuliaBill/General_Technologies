@@ -1,0 +1,119 @@
+SELECT
+ price,
+    CASE
+  WHEN price < 3000
+   THEN 1
+  WHEN price < 5000
+   THEN 2
+  WHEN price > 5000
+   THEN 3
+ END AS group_cateogry
+FROM products;
+
+Aufgabe 1
+
+-- возращать зп сотудника 
+-- также возращать новое поле cateogry у которого значение будет:
+-- Если сотрудник заработывает меньше 3000 то "Меньше среднего"
+-- Если сотрудник зрабатывает меньше 10.000 то "Средний"
+-- Если сотрудник заработывает больше 10.000 "высше среднего"
+
+SELECT salary,
+CASE
+WHEN salary < 3000
+THEN "Меньше среднего"
+WHEN salary < 10000
+THEN "Средний"
+WHEN salary > 10000
+THEN "выше среднего"
+END AS group_category
+FROM employees;
+
+AUfgabe 2
+
+Разделите самолеты на ближне-, средне- и дальнемагистральные. Ближнемагистральными будем считать самолеты, дальность полета которых > 1000 км и <= 2500 км. Среднемагистральными — с дальностью полета > 2500 км и <= 6000 км. Дальнемагистральными — с дальностью полета > 6000 км. В выборке должно быть два столбца, где в первом указана модель самолета. Во втором, category, — категория, со значениями short-haul, medium-haul, long-haul (ближне-, средне- и дальнемагистральные соответственно). Каждый самолет точно попадает ровно в одну категорию.
+В выборке должны присутствовать два атрибута — model_name, category.
+
+SELECT model_name,
+range_val,
+CASE 
+WHEN range_val BETWEEN 1000 AND 2500
+THEN "short-haul"
+WHEN range_val BETWEEN 2500 AND 6000
+THEN "medium-haul"
+WHEN range_val > 6000
+THEN "long-haul"
+END AS Category
+FROM airliners;
+
+
+Aufgabe 3
+
+Выведите данные о билетах разной ценовой категории. Среди билетов экономкласса (Economy) добавьте в выборку билеты с ценой от 10 000 до 11 000 включительно. Среди билетов комфорт-класса (PremiumEconomy) — билеты с ценой от 20 000 до 30 000 включительно. Среди билетов бизнес-класса (Business) — с ценой строго больше 100 000. В решении необходимо использовать оператор CASE.
+В выборке должны присутствовать три атрибута — id, service_class, price.
+
+SELECT
+id,
+service_class,
+price,
+CASE
+WHEN price >= 10000 AND price <= 11000
+THEN "Economy"
+WHEN price >= 20000 AND price <= 30000
+THEN "PremiumEcnomy"
+WHEN price > 100000
+THEN "Busines"
+END AS Category
+FROM tickets;
+
+
+In diesem FAll besser ist das Schlüsselwort BETWEEN
+
+SELECT  
+id,
+service_class,
+price,
+CASE
+WHEN price BETWEEN 10000 AND 11000
+THEN "Economy"
+WHEN price BETWEEN 20000 AND 30000
+THEN "PremiumEcnomy"
+WHEN price > 100000
+THEN "Busines"
+END AS Category
+FROM tickets;
+
+
+Noch eine weitere Variante:
+
+-- SELECT 
+--  id,
+--     service_class,
+--     price
+-- FROM tickets
+-- WHERE
+--     CASE service_class
+--   WHEN "Business" THEN price > 100000
+--   WHEN "PremiumEconomy" THEN price BETWEEN 20000 AND 30000
+--   WHEN "Economy"  THEN price BETWEEN 10000 AND 11000
+--  END;
+
+
+Aufgabe 4
+
+Разделите самолеты на три класса по возрасту. Если самолет произведен раньше 2000 года, то отнесите его к классу 'Old'. Если самолет произведен между 2000 и 2010 годами включительно, то отнесите его к классу 'Mid'. Более новые самолеты отнесите к классу 'New'. Исключите из выборки дальнемагистральные самолеты с максимальной дальностью полета больше 30000 км. Отсортируйте выборку по классу возраста в порядке возрастания.
+В выборке должны присутствовать два атрибута — side_number, age.
+
+
+SELECT 
+side_number,
+CASE 
+WHEN production_year < 2000
+THEN "old"
+WHEN production_year <= 2010
+THEN "Mid"
+ELSE "New"
+END Age
+FROM airliners
+WHERE range_val <= 30000
+ORDER BY age;

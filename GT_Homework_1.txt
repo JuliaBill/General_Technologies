@@ -1,0 +1,41 @@
+1. Бизнес-процессы видео-хостинга (Youtube)
+
+1) Регистрация пользователя / Create
+2) Блокировка пользователя / Update
+3) Изменение профиля пользователя / Update
+4) Загрузка видео пользователем / Create
+5) Просмотр видео пользователем / Read
+6) Поиск видео / Read
+7) Удаление видео / Delete
+8) Блокировка видео / Update
+9) Поставить лайк видео / Update
+10) Оставить комментарий / Create
+
+
+2.Вывести название и стоимость товаров от 20 EUR.
+
+SELECT 
+ProductName,
+Price
+FROM Products
+
+WHERE
+Price >= 20
+
+3.Вывести страны поставщиков.
+
+SELECT 
+Country
+FROM Suppliers
+
+4. Вывести контактные имена клиентов, кроме тех, что из France и USA.
+
+SELECT 
+ContactName
+FROM
+Customers
+WHERE
+NOT Country = 'France'
+OR
+Country = 'USA'
+
