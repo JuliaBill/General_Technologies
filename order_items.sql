@@ -1,0 +1,1 @@
+select * From oe.order_items

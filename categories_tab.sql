@@ -1,0 +1,1 @@
+select * From oe.categories_tab
