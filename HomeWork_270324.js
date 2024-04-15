@@ -31,27 +31,16 @@ db.users.countDocuments(
 
 db.users.aggregate([
     { $match:
-    { is_blocked: { $ne: true } } ,
+    { is_blocked: { $ne: true } },
     { balance: { $lte: 1000 } },
-    { country: { $nin: ["Germany", "Framce"]} }
-    },
+    { country: { $nin: ["Germany", "France"]} }},
     { $count: 'unblocked_users' }
 ])
 
 // 5. Также очень коротко опишите, как работает агрегация в MongoDB
 
+// Операции агрегирования обрабатывают данные и возвращают вычисленные результаты. Они группируют значения из нескольких документов, выполняют с ними разные действия и возвращают один-единственный результат.
 
 
 
-db.reactions.aggregate([
-    {
-        $lookup: {
-            from: 'users', // название коллекции
-            localField: 'author_id', // внеш/ключ в тек/коллекции
-            foreignField: '_id', // перв/ключ в связанной коллекции
-            as: 'author' // куда поместить данные
-        }
-    }
-])
 
-"track_id" : ObjectId("65e8553c1da2555eb411b746")
